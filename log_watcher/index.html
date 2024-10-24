@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Recent Logs</title>
+        <script>
+        var ws = new WebSocket("ws://localhost:8000/log");
+        ws.onmessage = function(event) {
+            const logContainer = document.getElementById("log");
+            logContainer.textContent += event.data;
+            logContainer.scrollTop = logContainer.scrollHeight;
+        };
+        ws.onclose = function(event) {
+            alert("WebSocket connection closed");
+        }
+        </script>
+    </head>
+    <body>
+        <h1>Recent Logs</h1>
+        <pre id="log"></pre>
+        <div id="log">{{last_lines}}</div>
+    </body>
+</html>
